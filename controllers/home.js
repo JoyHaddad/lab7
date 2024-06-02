@@ -4,9 +4,11 @@
 
 function getHome(request, response){
   // do any work you need to do, then
-  response.render('home', {title: 'home'});
+   response.render('home', {title: 'home'});
+  
 }
 
 module.exports = {
     getHome
 };
+

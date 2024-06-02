@@ -1,2 +1,37 @@
 <h1> Home </h1>
 <p>This is the {{title}} page</p>
+
+<div>
+  <button id="toggleChatrooms" class="bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-600 w-15 h-10 ml-10 mb-5">
+    <h1 class="font-bold text-md mb-5">Chat Rooms</h1>
+  </button>
+  <button id="createChatroom" class="bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-600 w-15 h-10 ml-10 mb-5">
+    <h1 class="font-bold text-md mb-5">Create Chat Room</h1>
+  </button>
+</div>
+
+<div id="chatroomsGrid" class="hidden grid grid-rows-1 gap-2 ml-10 w-full max-w-sm">
+  <button onclick="promptNickname('Chat Room 1')"> 
+    <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 1</div>
+  </button>
+  <button onclick="promptNickname('Chat Room 2')"> 
+    <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 2</div>
+  </button>
+  <button onclick="promptNickname('Chat Room 3')"> 
+    <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 3</div>
+  </button>
+</div>
+
+<script>
+  document.getElementById('toggleChatrooms').addEventListener('click', function() {
+    document.getElementById('chatroomsGrid').classList.toggle('hidden');
+  });
+
+
+  function promptNickname(chatroomName) {
+    const nickname = prompt(`Enter your nickname for ${chatroomName}:`);
+    if (nickname) {
+      alert(`Welcome, ${nickname}! You have joined ${chatroomName}.`);
+    }
+  }
+</script>
