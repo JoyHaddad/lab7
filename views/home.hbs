@@ -1,27 +1,30 @@
+<body class="bg-blue-200 w-full bg-gradient-to-r from-blue-500 to-blue-200">
+
 <h1> Home </h1>
 <p>This is the {{title}} page</p>
 
-<div>
-  <button id="toggleChatrooms" class="bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-600 w-15 h-10 ml-10 mb-5">
-    <h1 class="font-bold text-md mb-5">Chat Rooms</h1>
-  </button>
-  <button id="createChatroom" class="bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-600 w-15 h-10 ml-10 mb-5">
-    <h1 class="font-bold text-md mb-5">Create Chat Room</h1>
-  </button>
-</div>
-
-<div id="chatroomsGrid" class="hidden grid grid-rows-1 gap-2 ml-10 w-full max-w-sm">
-  <button onclick="promptNickname('Chat Room 1')"> 
-    <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 1</div>
-  </button>
-  <button onclick="promptNickname('Chat Room 2')"> 
-    <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 2</div>
-  </button>
-  <button onclick="promptNickname('Chat Room 3')"> 
-    <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 3</div>
-  </button>
-</div>
-
+<div class="flex flex-col items-center mt-5">
+    <div class="flex gap-10">
+      <button id="toggleChatrooms" class="bg-blue-800 text-white py-3 px-3 rounded hover:bg-blue-600 w-40">
+        <h1 class="font-bold text-sm">Chat Rooms</h1>
+      </button>
+      <button id="createChatroom" class="bg-blue-800 text-white py-2 px-3 rounded hover:bg-blue-600 w-40 ">
+        <h1 class="font-bold text-sm">Create Chat Room</h1>
+      </button>
+    </div>
+    <div id="chatroomsGrid" class="hidden grid grid-rows-1 gap-2 w-full max-w-xs mt-5">
+      <button onclick="promptNickname('Chat Room 1')"> 
+        <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 1</div>
+      </button>
+      <button onclick="promptNickname('Chat Room 2')"> 
+        <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 2</div>
+      </button>
+      <button onclick="promptNickname('Chat Room 3')"> 
+        <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 3</div>
+      </button>
+    </div>
+  </div>
+</body>
 <script>
   document.getElementById('toggleChatrooms').addEventListener('click', function() {
     document.getElementById('chatroomsGrid').classList.toggle('hidden');
