@@ -39,7 +39,9 @@ app.set("view engine", "hbs");
 app.get("/", homeHandler.getHome);
 app.get("/listRooms", roomHandler.listRooms);
 app.get("/:roomName", roomHandler.getRoom);
+app.get("/:roomName/messages", roomHandler.getMessages);
 app.post("/create", roomHandler.createRoom);
+app.post("/sendMessage", roomHandler.sendMessage);
 
 // NOTE: This is the sample server.js code we provided, feel free to change the structures
 

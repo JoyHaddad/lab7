@@ -1,6 +1,7 @@
 const { connectMongoDB } = require("../util/mongoDB.js");
 const roomGenerator = require("../util/roomIdGenerator.js");
 const chatRoom = require("../models/chatRoom.js");
+const moment = require("moment");
 
 async function getRoom(request, response) {
   try {
@@ -53,8 +54,65 @@ async function createRoom(request, response) {
   }
 }
 
+async function sendMessage(request, response) {
+  try {
+    const { roomName, sender, content } = request.body;
+    await connectMongoDB();
+
+    const room = await chatRoom.findOne({ roomName });
+    if (!room) {
+      response.status(404).send("Room not found");
+      return;
+    }
+
+    room.messages.push({ sender, content });
+    await room.save();
+    response.status(201).send({ message: "Message added successfully", room });
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Failed to send message");
+  }
+}
+
+async function getMessages(request, response) {
+  try {
+    const roomName = request.params.roomName;
+    await connectMongoDB();
+
+    const room = await chatRoom.findOne({ roomName });
+    if (!room) {
+      response.status(404).send("Room not found");
+      return;
+    }
+
+    const today = moment().startOf("day");
+
+    const messagesWithFormattedTimestamps = room.messages.map((message) => {
+      const messageDate = moment(message.timestamp);
+      if (messageDate.isSame(today, "day")) {
+        return {
+          ...message.toObject(),
+          timestamp: messageDate.format("h:mm A"),
+        };
+      } else {
+        return {
+          ...message.toObject(),
+          timestamp: messageDate.fromNow(),
+        };
+      }
+    });
+
+    response.send({ roomName, messages: messagesWithFormattedTimestamps });
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Failed to retrieve messages");
+  }
+}
+
 module.exports = {
   getRoom,
   createRoom,
   listRooms,
+  sendMessage,
+  getMessages,
 };
