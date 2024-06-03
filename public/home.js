@@ -18,8 +18,8 @@ document
 
           const div = document.createElement("div");
           div.className =
-            "chatroom-item bg-blue-300 border border-black p-4 ml-5";
-          div.textContent = chatroom.roomName;
+            "chatroom-item bg-blue-200 border border-blue-800 rounded p-4 ml-5";
+          div.textContent = "Room: " + chatroom.roomName;
 
           a.appendChild(div);
           chatRoomsGrid.appendChild(a);
