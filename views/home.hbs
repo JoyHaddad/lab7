@@ -1,40 +1,29 @@
-<body class="bg-blue-200 w-full bg-gradient-to-r from-blue-500 to-blue-200">
+<div class="flex flex-col mt-5 ml-5">
+  <form id="create-room-form" class="flex flex-col">
+    <label for="room-name-input" class="mb-2">Room Name:</label>
+    <input
+      type="text"
+      id="room-name-input"
+      class="mb-2 p-2 border rounded w-64"
+    />
+    <button
+      id="createChatroom"
+      class="bg-blue-800 text-white py-2 px-3 rounded hover:bg-blue-600 w-40 font-bold text-sm"
+    >
+      Create Chat Room
+    </button>
+  </form>
 
-<h1> Home </h1>
-<p>This is the {{title}} page</p>
+  <button
+    id="toggleChatRooms"
+    class="bg-blue-800 text-white py-3 px-3 rounded hover:bg-blue-600 w-40 font-bold text-sm"
+  >
+    Chat Rooms
+  </button>
 
-<div class="flex flex-col items-center mt-5">
-    <div class="flex gap-10">
-      <button id="toggleChatrooms" class="bg-blue-800 text-white py-3 px-3 rounded hover:bg-blue-600 w-40">
-        <h1 class="font-bold text-sm">Chat Rooms</h1>
-      </button>
-      <button id="createChatroom" class="bg-blue-800 text-white py-2 px-3 rounded hover:bg-blue-600 w-40 ">
-        <h1 class="font-bold text-sm">Create Chat Room</h1>
-      </button>
-    </div>
-    <div id="chatroomsGrid" class="hidden grid grid-rows-1 gap-2 w-full max-w-xs mt-5">
-      <button onclick="promptNickname('Chat Room 1')"> 
-        <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 1</div>
-      </button>
-      <button onclick="promptNickname('Chat Room 2')"> 
-        <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 2</div>
-      </button>
-      <button onclick="promptNickname('Chat Room 3')"> 
-        <div class="chatroom-item bg-blue-300 border border-black p-4">Chat Room 3</div>
-      </button>
-    </div>
-  </div>
-</body>
-<script>
-  document.getElementById('toggleChatrooms').addEventListener('click', function() {
-    document.getElementById('chatroomsGrid').classList.toggle('hidden');
-  });
+</div>
+<div id="chatRoomsGrid" class="grid grid-rows-1 gap-2 w-full max-w-xs mt-5">
+</div>
 
-
-  function promptNickname(chatroomName) {
-    const nickname = prompt(`Enter your nickname for ${chatroomName}:`);
-    if (nickname) {
-      alert(`Welcome, ${nickname}! You have joined ${chatroomName}.`);
-    }
-  }
+<script src="/home.js">
 </script>
