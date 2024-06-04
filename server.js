@@ -40,8 +40,9 @@ app.get("/", homeHandler.getHome);
 app.get("/listRooms", roomHandler.listRooms);
 app.get("/:roomName", roomHandler.getRoom);
 app.get("/:roomName/messages", roomHandler.getMessages);
+app.post("/:roomName/sendMessage", roomHandler.sendMessage);
+app.post("/:roomName/nickname", roomHandler.setNickname);
 app.post("/create", roomHandler.createRoom);
-app.post("/sendMessage", roomHandler.sendMessage);
 
 // NOTE: This is the sample server.js code we provided, feel free to change the structures
 

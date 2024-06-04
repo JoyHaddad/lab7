@@ -56,7 +56,8 @@ async function createRoom(request, response) {
 
 async function sendMessage(request, response) {
   try {
-    const { roomName, sender, content } = request.body;
+    const { sender, content } = request.body;
+    const roomName = request.params.roomName;
     await connectMongoDB();
 
     const room = await chatRoom.findOne({ roomName });
@@ -109,10 +110,38 @@ async function getMessages(request, response) {
   }
 }
 
+async function setNickname(request, response) {
+  try {
+    const { nickname } = request.body;
+    const roomName = request.params.roomName;
+
+    await connectMongoDB();
+
+    const room = await chatRoom.findOne({ roomName });
+    if (!room) {
+      response.status(404).send("Room not found");
+      return;
+    }
+    if (room.users.includes(nickname)) {
+      response.status(400).send({ error: "Nickname already exists" });
+      return;
+    }
+    room.users.push(nickname);
+    await room.save();
+
+    const message = `${nickname} has joined the chat`;
+    response.send({ message });
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Failed to set nickname");
+  }
+}
+
 module.exports = {
   getRoom,
   createRoom,
   listRooms,
   sendMessage,
   getMessages,
+  setNickname,
 };
