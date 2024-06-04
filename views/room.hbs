@@ -1,42 +1,56 @@
 <div class="ml-5">
-<br/>
-<button onclick="location.href='/'" class="bg-blue-800 rounded p-2 text-white font-bold">Go Back Home</button>
-<br/> <br/>
-<h1> Room: {{ roomName }}</h1>
-<p>Room id: {{ newRoomId }}</p>
+  <br />
+  <button
+    onclick="location.href='/'"
+    class="bg-blue-800 rounded p-2 text-white font-bold"
+  >Go Back Home</button>
+  <br />
+  <br />
+  <h1> Room: {{roomName}}</h1>
 </div>
 
-<div class="flex justify-center mt-8">
-   
+<form id="nicknameForm" class="flex justify-center mt-8">
   <div class="max-w-xl w-full bg-blue-200 p-5">
-    <div id="chatroomMessages" class="mt-5">
-      <div class="message flex items-center mb-2 justify-start">
-        <div class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white mr-3">JH</div>
-        <div class="bg-blue-100 rounded-lg p-3">
-          <div class="text-sm font-medium text-gray-900">Joyeet H</div>
-          <div class="text-sm text-gray-700">HI I am Joe Mama</div>
-          <div class="text-xs text-gray-500">1:30 PM</div>
-        </div>
-      </div>
-
-      <div class="message flex items-center mb-2 justify-end">
-        <div class="bg-green-100 rounded-lg p-3">
-          <div class="text-sm font-medium text-gray-900">Bubbles B</div>
-          <div class="text-sm text-gray-700">meow meow meow</div>
-          <div class="text-xs text-gray-500">1:35 PM</div>
-        </div>
-        <div class="flex items-center justify-center h-8 w-8 rounded-full bg-green-500 text-white ml-3">BB</div>
-      </div>
+    <div class="mb-4">
+      <label
+        for="nicknameInput"
+        class="block text-gray-700 text-sm font-bold mb-2"
+      >nickname:</label>
+      <input
+        id="nicknameInput"
+        type="text"
+        placeholder="Enter your nickname"
+        class="w-full px-4 py-2 rounded-lg border-gray-300 focus:outline-none focus:border-blue-500"
+        required
+      />
     </div>
+    <button
+      id="nicknameButton"
+      class="bg-blue-500 text-white px-4 py-2 rounded-lg"
+    >Enter Chatroom</button>
+  </div>
+</form>
+
+<div
+  id="chatRoomContainer"
+  class="max-w-xl w-full bg-blue-200 p-5"
+  style="visibility: hidden;"
+>
+  <div id="chatroomMessages"></div>
+  <div class="mt-5">
     <div class="flex max-w-xl w-full bg-white mt-5 p-3 rounded-lg">
-    <input  id="messageInput" type="text" placeholder="Type your message..." class="w-full px-4 py-2 rounded-lg border-gray-300 focus:outline-none focus:border-blue-500">
-    <button id="sendMessageBtn"class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Send</button>
-  </div>
-</div>
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Type your message..."
+        class="w-full px-4 py-2 rounded-lg border-gray-300 focus:outline-none focus:border-blue-500"
+      />
+      <button
+        id="sendMessageBtn"
+        class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2"
+      >Send</button>
+    </div>
   </div>
 </div>
 
-<script src="/room.js">
-    
-
-</script>
+<script src="/room.js"></script>
