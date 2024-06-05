@@ -75,10 +75,12 @@ function fetchNewMessagesPeriodically(roomName, nickname) {
   }, 3000); // Fetch every 3 seconds
 }
 
+const messageIds = new Set();
+
 async function getMessages(roomName, nickname) {
   try {
     const chatroomMessages = document.getElementById("chatroomMessages");
-    chatroomMessages.innerHTML = "";
+
     // Fetch messages from the server
     const response = await fetch(`/${roomName}/messages`, {
       method: "GET",
@@ -90,39 +92,43 @@ async function getMessages(roomName, nickname) {
     if (response.ok) {
       // Process each message and append to chatroomMessages container
       data.messages.forEach((message) => {
-        const messageDiv = document.createElement("div");
-        messageDiv.className = "message flex items-center mb-2";
+        if (!messageIds.has(message._id)) {
+          messageIds.add(message._id);
 
-        // Get user initials from the sender's name
-        const userInitials = message.sender
-          .split(" ")
-          .map((name) => name[0])
-          .join("");
+          const messageDiv = document.createElement("div");
+          messageDiv.className = "message flex items-center mb-2";
 
-        // Check if the message sender is the current user
-        if (message.sender === nickname) {
-          messageDiv.classList.add("justify-end");
-          messageDiv.innerHTML = `
-            <div class="bg-green-100 rounded-lg p-3">
-              <div class="text-sm font-medium text-gray-900">${message.sender}</div>
-              <div class="text-sm text-gray-700">${message.content}</div>
-              <div class="text-xs text-gray-500">${message.timestamp}</div>
-            </div>
-            <div class="flex items-center justify-center h-8 w-8 rounded-full bg-green-500 text-white ml-3">${userInitials}</div>
-          `;
-        } else {
-          messageDiv.innerHTML = `
-            <div class="bg-blue-100 rounded-lg p-3">
-              <div class="text-sm font-medium text-gray-900">${message.sender}</div>
-              <div class="text-sm text-gray-700">${message.content}</div>
-              <div class="text-xs text-gray-500">${message.timestamp}</div>
-            </div>
-            <div class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white ml-3">${userInitials}</div>
-          `;
+          // Get user initials from the sender's name
+          const userInitials = message.sender
+            .split(" ")
+            .map((name) => name[0])
+            .join("");
+
+          // Check if the message sender is the current user
+          if (message.sender === nickname) {
+            messageDiv.classList.add("justify-end");
+            messageDiv.innerHTML = `
+              <div class="bg-green-100 rounded-lg p-3">
+                <div class="text-sm font-medium text-gray-900">${message.sender}</div>
+                <div class="text-sm text-gray-700">${message.content}</div>
+                <div class="text-xs text-gray-500">${message.timestamp}</div>
+              </div>
+              <div class="flex items-center justify-center h-8 w-8 rounded-full bg-green-500 text-white ml-3">${userInitials}</div>
+            `;
+          } else {
+            messageDiv.innerHTML = `
+              <div class="bg-blue-100 rounded-lg p-3">
+                <div class="text-sm font-medium text-gray-900">${message.sender}</div>
+                <div class="text-sm text-gray-700">${message.content}</div>
+                <div class="text-xs text-gray-500">${message.timestamp}</div>
+              </div>
+              <div class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white ml-3">${userInitials}</div>
+            `;
+          }
+
+          // Append the message div to the chatroomMessages container
+          chatroomMessages.appendChild(messageDiv);
         }
-
-        // Append the message div to the chatroomMessages container
-        chatroomMessages.appendChild(messageDiv);
       });
     } else {
       // Show an alert if there's an error in the response
